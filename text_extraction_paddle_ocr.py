@@ -13,12 +13,12 @@ ocr = PaddleOCR(
     lang='en'                        # English language
 )
 
-video_editing_folder_path = 'TEXT/'
+video_editing_folder_path = 'VIDEO_EDITING/'
 csv_file_path = os.path.join(video_editing_folder_path, 'extracted_texts_videos.csv')
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-video_folder_path = 'TEXT/VIDEOS'
-video_editing_folder_path = 'TEXT'
+video_folder_path = 'VIDEOS'
+video_editing_folder_path = 'VIDEO_EDITING'
 
 def get_reel_number(filename):
     match = re.search(r"Video_(\d+)", filename)
@@ -88,18 +88,16 @@ def extract_text_from_white_area(frame):
     min_y = 0
     max_y = frame_height
     print("min_x = {}, min_y = {}, max_x = {}, max_y = {}".format(min_x,min_y,max_x,max_y))
-    output_dir = "VIDEO_EDITING" 
-    os.makedirs(output_dir, exist_ok=True)
-    if min_x < max_x and min_y < max_y: 
-        text_region = frame[min_y:max_y, min_x:max_x] 
-        output_filename = os.path.join(output_dir, f"text_frame.png") 
-        cv2.imwrite(output_filename, text_region) 
-        print(f"Saved: {output_filename}") 
+    # Optionally save debug frame (commented out for headless environments)
+    # output_dir = "VIDEO_EDITING" 
+    # os.makedirs(output_dir, exist_ok=True)
+    # if min_x < max_x and min_y < max_y: 
+    #     text_region = frame[min_y:max_y, min_x:max_x] 
+    #     output_filename = os.path.join(output_dir, f"text_frame.png") 
+    #     cv2.imwrite(output_filename, text_region) 
+    #     print(f"Saved: {output_filename}") 
 
-    debug_frame = frame.copy()
-    cv2.rectangle(debug_frame, (min_x, min_y), (max_x, max_y), (0, 0, 255), 2)
-    cv2.imshow("Final Detected Video Area", debug_frame)
-    cv2.waitKey(700)
+    # Note: cv2.imshow() and cv2.waitKey() removed - not compatible with headless environments (Colab)
 
     # Crop the region of interest
     white_area = frame[min_y:max_y, min_x:max_x]
