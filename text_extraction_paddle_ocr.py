@@ -14,10 +14,10 @@ ocr = PaddleOCR(
 )
 
 video_editing_folder_path = 'VIDEO_EDITING/'
-csv_file_path = os.path.join(video_editing_folder_path, 'extracted_texts_videos.csv')
+csv_file_path = os.path.join(video_editing_folder_path, 'extracted_texts_english.csv')
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-video_folder_path = 'VIDEOS'
+video_folder_path = 'fathmowillis'
 video_editing_folder_path = 'VIDEO_EDITING'
 
 def get_reel_number(filename):
@@ -172,7 +172,7 @@ def get_input_video(reel_number):
             return input_video_path
 
 def process_all_videos():
-    for reel_number in range(361, 894):
+    for reel_number in range(1, 1063):
         print(f"Processing reel number: {reel_number}")
         input_video_path = get_input_video(reel_number)
         process_video(input_video_path, reel_number)
